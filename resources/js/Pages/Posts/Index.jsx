@@ -38,15 +38,19 @@ export default function Index(props) {
                                     <tr className="bg-gray-100">
                                         <th className="px-4 py-2 w-20">No.</th>
                                         <th className="px-4 py-2">Title</th>
+                                        <th className="px-4 py-2">Image</th>
                                         <th className="px-4 py-2">Body</th>
                                         <th className="px-4 py-2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {posts.map(({ id, title, body }) => (
+                                    {posts.map(({ id, title, body, image }) => (
                                         <tr key={id}>
                                             <td className="border px-4 py-2">{ id }</td>
                                             <td className="border px-4 py-2">{ title }</td>
+                                            <td className="border px-4 py-2 flex justify-center">
+                                                <img src={image} className="w-32 rounded" />
+                                                </td>
                                             <td className="border px-4 py-2">{ body }</td>
                                             <td className="border px-4 py-2">
                                                 <Link

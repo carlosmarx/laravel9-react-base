@@ -40,9 +40,17 @@ class PostController extends Controller
         Validator::make($request->all(), [
             'title' => ['required'],
             'body' => ['required'],
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048'
         ])->validate();
 
-        Post::create($request->all());
+        $fileName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('uploads/posts'), $fileName);
+
+        Post::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image' => $fileName,
+        ]);
 
         return redirect()->route('posts.index');
     }

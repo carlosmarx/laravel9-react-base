@@ -1,10 +1,10 @@
 import React from 'react';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, Link } from '@inertiajs/inertia-react';
+import { Head, useForm, usePage, Link } from '@inertiajs/inertia-react';
 
 export default function Dashboard(props) {
 
-    const { data, setData, errors, post } = useForm({
+    const { data, setData, errors, post, progress } = useForm({
         title: "",
         description: "",
     });
@@ -71,7 +71,27 @@ export default function Dashboard(props) {
                                             {errors.body}
                                         </span>
                                     </div>
+                                    <div className="mb-0">
+                                        <label className="">Image</label>
+                                        <input
+                                            type="file"
+                                            className="w-full px-4 py-2"
+                                            label="Image"
+                                            name="image"
+                                            onChange={(e) =>
+                                                setData("image", e.target.files[0])
+                                            }
+                                        />
+                                        <span className="text-red-600">
+                                            {errors.image}
+                                        </span>
+                                    </div>
                                 </div>
+                                {progress && (
+                                  <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                    <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" width={progress.percentage}> {progress.percentage}%</div>
+                                  </div>
+                                )}
                                 <div className="mt-4">
                                     <button
                                         type="submit"
