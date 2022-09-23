@@ -43,13 +43,16 @@ class PostController extends Controller
             'image' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048'
         ])->validate();
 
-        $fileName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('uploads/posts'), $fileName);
+        if($request->file('image'))
+        {
+            $image = $request->file('image')->store('uploads/posts', 'public');
+        }
+
 
         Post::create([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $fileName,
+            'image' => $image,
         ]);
 
         return redirect()->route('posts.index');

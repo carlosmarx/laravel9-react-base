@@ -49,7 +49,7 @@ export default function Index(props) {
                                             <td className="border px-4 py-2">{ id }</td>
                                             <td className="border px-4 py-2">{ title }</td>
                                             <td className="border px-4 py-2 flex justify-center">
-                                                <img src={image} className="w-32 rounded" />
+                                                <img src={`storage/${image}`} className="w-32 rounded" />
                                                 </td>
                                             <td className="border px-4 py-2">{ body }</td>
                                             <td className="border px-4 py-2">
