@@ -1,17 +1,32 @@
 import React from 'react';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm, usePage, Link } from '@inertiajs/inertia-react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Dashboard(props) {
+
+    const [imagePreview, setImagePreview] = useState(null);
 
     const { data, setData, errors, post, progress } = useForm({
         title: "",
         description: "",
+        image: null,
     });
 
     function handleSubmit(e) {
         e.preventDefault();
         post(route("posts.store"));
+    }
+
+    // useEffect(() => {
+    //     previewImage();
+    // }, [data.image]);
+
+    function setImage(e) {
+        const image = e.target.files[0];
+        setImagePreview(URL.createObjectURL(image));
+        setData("image", e.target.files[0])
     }
 
     return (
@@ -78,9 +93,7 @@ export default function Dashboard(props) {
                                             className="w-full px-4 py-2"
                                             label="Image"
                                             name="image"
-                                            onChange={(e) =>
-                                                setData("image", e.target.files[0])
-                                            }
+                                            onChange={(e) => setImage(e)}
                                         />
                                         <span className="text-red-600">
                                             {errors.image}
@@ -92,6 +105,13 @@ export default function Dashboard(props) {
                                     <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" width={progress.percentage}> {progress.percentage}%</div>
                                   </div>
                                 )}
+
+                                {data.image &&
+                                    <div className='mb-4'>
+                                        <img className='w-32 rounded' src={imagePreview} />
+                                    </div>
+                                }
+
                                 <div className="mt-4">
                                     <button
                                         type="submit"
