@@ -5,8 +5,12 @@
 
 - Clone this repository
 - Cd in folder project
+- Copy .env-example as .env
 - Run this commands:
     - composer install
+    - php artisan key:generate
+    - php artisan link:storage
+    - php artisan migrate
     - npm install && npm run dev
 
 Enjoy!
